@@ -6,13 +6,14 @@ namespace PurchasePod
 {
     public class PurchasePodInstanciateModule : MonoBehaviour
     {
+        public GameObject m_DisplayModule;
         public GameObject m_Module;
         public bool m_SpawnModule = false;
 
         // Use this for initialization
         void Start()
         {
-            m_Module = GetComponent<PurchasePodController>().m_Module;
+            m_DisplayModule = GetComponent<PurchasePodController>().m_Module;
             // gameObject.tag = "PurchasePod";
         }
 
@@ -24,19 +25,23 @@ namespace PurchasePod
 
         public void SetModule(GameObject _Module)
         {
-            m_Module = _Module;
+            m_DisplayModule = _Module;
         }
 
         void OnTriggerStay(Collider _col)
         {
-           if(_col.GetComponent<VrHandInteraction>() != null)
-            if (_col.GetComponent<VrHandInteraction>().m_Trigger && !m_SpawnModule)
+            if (_col.GetComponent<VrHandInteraction>() != null)
             {
-               
-                GameObject t_Module = Instantiate(m_Module, _col.transform.position, Quaternion.identity);
-                t_Module.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
-                m_SpawnModule = true;
-            }
+                if (!m_SpawnModule)
+                m_DisplayModule.SetActive(false); //turn off the display module            
+
+                m_Module = Instantiate(m_DisplayModule, m_DisplayModule.transform.position, Quaternion.identity);
+                m_Module.transform.localScale = m_DisplayModule.transform.localScale;
+                m_Module.AddComponent<VRClicked>();
+                m_SpawnModule = true; //make sure 1 is spawned
+            }  
+
+
         }
         void OnTriggerExit(Collider _col)
         {
