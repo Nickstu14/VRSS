@@ -3,23 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Module
 {
+    [System.Serializable]
+    public struct Snap
+    {
+        public Collider SColider;
+        [Space(2)]
+        public Vector3 s_SnapPos;
+       
+    }
 
     public class ModuleSnap : MonoBehaviour
     {
-        public Vector3 s_SnapPos;
+        //public Vector3 s_SnapPos;
+        [SerializeField]
+        public List<Snap> m_SnapList;
+        [Space(5)]
         public GameObject test;
+        
 
         void Start()
         {
-            if (transform.FindChild("SnapLocation") != null)
+           
+
+           /* if (transform.FindChild("SnapLocation") != null)
             {
-                s_SnapPos = transform.FindChild("SnapLocation").transform.position;
+               // s_SnapPos = transform.FindChild("SnapLocation").transform.position;
                 if (test != null)
                 {
-                    GameObject t_Go = Instantiate(test, s_SnapPos, Quaternion.identity, gameObject.transform.parent);
+                  //  GameObject t_Go = Instantiate(test, s_SnapPos, Quaternion.identity, gameObject.transform.parent);
                     //t_Go.transform.localScale = Vector3.one;
                 }
-            }
+            }*/
         }
 
         void Update()
@@ -36,10 +50,10 @@ namespace Module
 
 
 
-        public Vector3 GetSnapPos()
+      /*  public Vector3 GetSnapPos()
         {
             return s_SnapPos;
-        }
+        }*/
 
         /*
         Notes:
