@@ -21,7 +21,7 @@ public class VRObjectControllerAddScript : MonoBehaviour
         }
 
        
-        //Add Interactable scripts
+        //Add Intractable scripts
         if (gameObject.GetComponent<VRTK.VRTK_InteractableObject>() == null)
         {
             gameObject.AddComponent<VRTK.VRTK_InteractableObject>();
@@ -35,7 +35,7 @@ public class VRObjectControllerAddScript : MonoBehaviour
         if (gameObject.GetComponent<VRTK.VRTK_InteractControllerAppearance>() == null)
             gameObject.AddComponent<VRTK.VRTK_InteractControllerAppearance>();
 
-        //Dont know if this is needed.
+        //Don't know if this is needed.
         if (gameObject.GetComponent<VRTK.SecondaryControllerGrabActions.VRTK_SwapControllerGrabAction>() == null)
             gameObject.AddComponent<VRTK.SecondaryControllerGrabActions.VRTK_SwapControllerGrabAction>();
     }
