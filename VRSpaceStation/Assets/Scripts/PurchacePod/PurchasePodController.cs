@@ -36,6 +36,7 @@ namespace PurchasePod
 
                 GameObject m_GO = Instantiate(m_Module, Position(), Quaternion.identity);
                 m_GO.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+                    print(m_GO.transform.position.y);
                 m_GO.AddComponent<PurchacePodModuleSpin>();
                 m_GO.transform.parent = transform;
 
@@ -61,7 +62,10 @@ namespace PurchasePod
         Vector3 Position()
         {
             Vector3 m_pos = gameObject.transform.position;
-            m_pos.y = gameObject.transform.position.y + m_ModuleHeight;
+            print(m_pos.y); print( GetComponent<SphereCollider>().center.y);
+            // m_pos.y = gameObject.transform.position.y + m_ModuleHeight;
+            m_pos.y += GetComponent<SphereCollider>().center.y; //centers the game object into the sphere
+            print(m_pos.y);
             return m_pos;
         }
 
