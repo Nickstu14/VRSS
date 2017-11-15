@@ -60,7 +60,7 @@ namespace PurchasePod
         {
             Vector3 m_pos = gameObject.transform.position;
             // m_pos.y = gameObject.transform.position.y + m_ModuleHeight;
-            m_pos.y = GetComponent<SphereCollider>().transform.position.y + GetComponent<SphereCollider>().center.y; //centers the game object into the sphere
+            m_pos.y = gameObject.transform.position.y + (GetComponent<SphereCollider>().center.y * 0.05f); //centers the game object into the sphere
             return m_pos;
         }
 

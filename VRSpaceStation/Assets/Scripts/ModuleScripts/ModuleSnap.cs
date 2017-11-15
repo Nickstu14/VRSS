@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace Module
 {
     [System.Serializable]
@@ -19,6 +20,7 @@ namespace Module
         public List<Snap> m_SnapList;
         [Space(5)]
         public GameObject test;
+        public bool Snap;
         
 
         void Start()
@@ -64,3 +66,28 @@ namespace Module
 
     }
 }
+
+/*
+ * bool snapped = false;
+GameObject snapparent; // the gameobject this transform will be snapped to
+Vector3 offset; // the offset of this object's position from the parent
+
+Update()
+{
+    if (snapped == true)
+    {
+        //retain this objects position in relation to the parent
+        transform.position = parent.transform.position + offset;
+    }
+}
+
+void OnTriggerEnter(Collider col)
+{
+    if (col.tag == "parentblock")
+    {
+        snapped = true;
+        snapparent = col.gameObject;
+        offset = transform.position - snapparent.transform.position; //store relation to parent
+    }
+}
+ * */
