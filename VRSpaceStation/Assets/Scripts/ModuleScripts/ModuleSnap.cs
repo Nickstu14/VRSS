@@ -7,9 +7,11 @@ namespace Module
     [System.Serializable]
     public struct Snap
     {
-        public Collider SColider;
+        public Collider s_Colider; // specified collider
         [Space(2)]
         public Vector3 s_SnapPos;
+        public float m_Offset; // how much the object will be offset to the edge of the original gameobject
+        public bool m_Snapped;
        
     }
 
@@ -18,9 +20,8 @@ namespace Module
         //public Vector3 s_SnapPos;
         [SerializeField]
         public List<Snap> m_SnapList;
-        [Space(5)]
-        public GameObject test;
-        public bool Snap;
+        //[Space(5)]
+       // public GameObject test;   //dont know whta this was used for.
         
 
         void Start()
