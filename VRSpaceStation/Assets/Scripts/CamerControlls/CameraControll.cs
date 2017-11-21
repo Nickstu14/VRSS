@@ -12,40 +12,54 @@ public class CameraControll : MonoBehaviour
     private float m_CamDistance = 1.5f;
 
     public float m_MouseSensitivity = 4f;
+    public float m_KeySpeed = 40f;
     public float m_ScrollSensitivity = 2f;
     public float m_OrbitDamp = 10f;
     public float m_ScrollDamp = 6f;
 
     private bool m_Panning = false;
 
+    public GameObject m_Object;
+    private Vector3 m_TargetPos;
+
     // Use this for initialization
     void Start()
     {
         m_CameraTransform = this.transform;
         m_Parent = this.transform.parent;
+
+        m_TargetPos = transform.position;
     }
 
     void Update()
     {
+        
+
         if (Input.GetMouseButtonDown(1))
         {
             //right click was pressed    
             m_Panning = true;
-             Cursor.visible = false;
+            Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
         if (Input.GetMouseButtonUp(1))
         {
             //right click was released    
             m_Panning = false;
-             Cursor.visible = true;
+            Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
+       /* if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+            m_Panning = true;
+        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
+            m_Panning = false;*/
+
     }
     // Update is called once per frame
     void LateUpdate()
     {
-        if (m_Panning)
+
+        if (m_Panning)//Mouse input
         {
             if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
             {
@@ -55,6 +69,24 @@ public class CameraControll : MonoBehaviour
                 m_LocalRotation.y = Mathf.Clamp(m_LocalRotation.y, -90f, 90f);
             }
         }
+
+        //keyboard input left right up and down
+        if (Input.GetKey(KeyCode.A))
+            m_LocalRotation.x += Time.deltaTime * m_KeySpeed;
+        if (Input.GetKey(KeyCode.D))
+            m_LocalRotation.x -= Time.deltaTime * m_KeySpeed;
+        if (Input.GetKey(KeyCode.W))
+        {
+            m_LocalRotation.y += Time.deltaTime * m_KeySpeed;
+            m_LocalRotation.y = Mathf.Clamp(m_LocalRotation.y, -90f, 90f);
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            m_LocalRotation.y -= Time.deltaTime * m_KeySpeed;
+            m_LocalRotation.y = Mathf.Clamp(m_LocalRotation.y, -90f, 90f);
+        }
+
+        //Mouse zoom in and out
         if (Input.GetAxis("Mouse ScrollWheel") != 0f)
         {
             float m_ScrollAmount = Input.GetAxis("Mouse ScrollWheel") * m_ScrollSensitivity;
@@ -63,6 +95,26 @@ public class CameraControll : MonoBehaviour
             m_CamDistance += m_ScrollAmount * -1f;
             m_CamDistance = Mathf.Clamp(m_CamDistance, 0.5f, 3f);
         }
+
+        //Keyboard in and out
+        if (Input.GetKey(KeyCode.Q))
+        {
+            float m_ScrollAmount = Time.deltaTime * m_ScrollSensitivity;
+
+            m_ScrollAmount *= (m_CamDistance * 0.3f);
+            m_CamDistance += m_ScrollAmount * -1;
+            m_CamDistance = Mathf.Clamp(m_CamDistance, 0.5f, 3f);
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+            float m_ScrollAmount = Time.deltaTime * m_ScrollSensitivity;
+
+            m_ScrollAmount *= (m_CamDistance * 0.3f);
+            m_CamDistance -= m_ScrollAmount * -1;
+            m_CamDistance = Mathf.Clamp(m_CamDistance, 0.5f, 3f);
+        }
+
+
 
         Quaternion m_Qt = Quaternion.Euler(m_LocalRotation.y, m_LocalRotation.x, 0);
         m_Parent.rotation = Quaternion.Lerp(m_Parent.rotation, m_Qt, Time.deltaTime * m_OrbitDamp);
