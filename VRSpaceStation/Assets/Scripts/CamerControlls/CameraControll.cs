@@ -33,7 +33,19 @@ public class CameraControll : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0))
+        {
+            // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                print(hit);
+                m_TargetPos = hit.point;
+                m_Object.transform.position += m_TargetPos;
+            }
+        }
 
         if (Input.GetMouseButtonDown(1))
         {
