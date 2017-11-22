@@ -22,6 +22,11 @@ public class CameraControll : MonoBehaviour
     public GameObject m_Object;
     private Vector3 m_TargetPos;
 
+    private Camera m_Cam;
+
+    public Vector3 m_ScreenPoint;
+    public Vector3 m_Offset;
+    public RaycastHit hit;
     // Use this for initialization
     void Start()
     {
@@ -29,23 +34,29 @@ public class CameraControll : MonoBehaviour
         m_Parent = this.transform.parent;
 
         m_TargetPos = transform.position;
+        m_Cam = GetComponent<Camera>();
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        /*if (Input.GetMouseButtonDown(0))
         {
-             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+             Ray ray = m_Cam.ScreenPointToRay(Input.mousePosition);
            // Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition), out hit))
+            if (Physics.Raycast(m_Cam.ScreenPointToRay(Input.mousePosition), out hit))
             {
                 print(hit);
-                hit.transform.position += Input.mousePosition;
+                //Vector3 m_MousePos = Input.mousePosition;
+                hit.transform.position += m_Cam.ScreenToWorldPoint(Input.mousePosition);   //new Vector3(m_MousePos.x, m_MousePos.y, hit.distance));
+                //hit.transform.position += Input.mousePosition;
                 //m_Object.transform.position += m_TargetPos;
+
             }
-        }
+        }*/
+
+        //Physics.Raycast(m_Cam.ScreenPointToRay(Input.mousePosition), out hit);
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -61,10 +72,10 @@ public class CameraControll : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
-       /* if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
-            m_Panning = true;
-        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
-            m_Panning = false;*/
+        /* if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+             m_Panning = true;
+         if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
+             m_Panning = false;*/
 
     }
     // Update is called once per frame
@@ -134,6 +145,26 @@ public class CameraControll : MonoBehaviour
         if (m_CameraTransform.localPosition.z != m_CamDistance * -1f)
         {
             m_CameraTransform.localPosition = new Vector3(0f, 0f, Mathf.Lerp(m_CameraTransform.localPosition.z, m_CamDistance * -1f, Time.deltaTime * m_ScrollDamp));
+        }
+    }
+
+
+    void OnMouseDown()
+    {
+
+        m_ScreenPoint = m_Cam.WorldToScreenPoint(Input.mousePosition);
+        m_Offset = Input.mousePosition - m_Cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, hit.distance));
+
+
+    }
+   void OnMouseDrag()
+    {
+        print("Hi");
+        if (Physics.Raycast(m_Cam.ScreenPointToRay(Input.mousePosition), out hit))
+        {
+            Vector3 m_curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, hit.distance);
+            Vector3 m_curPosition = m_Cam.ScreenToWorldPoint(m_curScreenPoint) + m_Offset;
+            hit.transform.position = m_curPosition;
         }
     }
 }
