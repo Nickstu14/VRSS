@@ -37,28 +37,65 @@ public class CameraControll : MonoBehaviour
         m_Cam = GetComponent<Camera>();
     }
 
+
     void Update()
     {
-        /*if (Input.GetMouseButtonDown(0))
+        m_ScreenPoint = m_Cam.WorldToScreenPoint(Input.mousePosition);
+        m_Offset = m_ScreenPoint - m_Cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, hit.distance));
+
+        if (Input.GetMouseButtonDown(0))
         {
-             Ray ray = m_Cam.ScreenPointToRay(Input.mousePosition);
-           // Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+            //Ray ray = m_Cam.ScreenPointToRay(Input.mousePosition);
+            // Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(m_Cam.ScreenPointToRay(Input.mousePosition), out hit))
             {
+                if (!hit.transform.GetComponent<Moveable>())
+                {
+                    GameObject m_Go = hit.transform.gameObject;
+                    m_Go.AddComponent<Moveable>();
+
+                }
+                /* else if (hit.transform.GetComponent<Moveable>().GetMove())
+                 {
+                     Vector3 m_curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_ScreenPoint.z);
+                     Vector3 m_curPosition = m_Cam.ScreenToWorldPoint(m_curScreenPoint) + m_Offset;
+                     hit.transform.position = m_curPosition;
+                 }*/
+
                 print(hit);
                 //Vector3 m_MousePos = Input.mousePosition;
-                hit.transform.position += m_Cam.ScreenToWorldPoint(Input.mousePosition);   //new Vector3(m_MousePos.x, m_MousePos.y, hit.distance));
+                // hit.transform.position += m_Cam.ScreenToWorldPoint(Input.mousePosition);   //new Vector3(m_MousePos.x, m_MousePos.y, hit.distance));
                 //hit.transform.position += Input.mousePosition;
                 //m_Object.transform.position += m_TargetPos;
 
+                //When hit, returns an objects, if moveable start the transform.
+
             }
-        }*/
+        }
+        if (Input.GetMouseButton(0))
+        {
+            //Ray ray = m_Cam.ScreenPointToRay(Input.mousePosition);
 
-        //Physics.Raycast(m_Cam.ScreenPointToRay(Input.mousePosition), out hit);
 
-        if (Input.GetMouseButtonDown(1))
+            if (Physics.Raycast(m_Cam.ScreenPointToRay(Input.mousePosition), out hit))
+            {
+                if (hit.transform.GetComponent<Moveable>().GetMove())
+                {
+                    Vector3 m_curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_ScreenPoint.z);
+                    Vector3 m_curPosition = m_Cam.ScreenToWorldPoint(m_curScreenPoint) + m_Offset;
+                    hit.transform.position = m_curPosition;
+                }
+            }
+        }
+
+        //when input getmousebuttonup is released then remove the movable script;
+        //might need to change the script to actually use the bool instead of adding and removing the script, so move the bool to a nother script like module info
+
+
+                //Physics.Raycast(m_Cam.ScreenPointToRay(Input.mousePosition), out hit);
+
+                if (Input.GetMouseButtonDown(1))
         {
             //right click was pressed    
             m_Panning = true;
@@ -149,17 +186,18 @@ public class CameraControll : MonoBehaviour
     }
 
 
-    void OnMouseDown()
+    public void OnMouseDown()
     {
 
         m_ScreenPoint = m_Cam.WorldToScreenPoint(Input.mousePosition);
-        m_Offset = Input.mousePosition - m_Cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, hit.distance));
+        m_Offset = m_ScreenPoint - m_Cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, hit.distance));
+
 
 
     }
-   void OnMouseDrag()
+    public void OnMouseDrag()
     {
-        print("Hi");
+
         if (Physics.Raycast(m_Cam.ScreenPointToRay(Input.mousePosition), out hit))
         {
             Vector3 m_curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, hit.distance);
