@@ -18,6 +18,7 @@ public class CameraControll : MonoBehaviour
     public float m_ScrollDamp = 6f;
 
     private bool m_Panning = false;
+    private bool m_Moving;
 
     public GameObject m_Object;
     private Vector3 m_TargetPos;
@@ -29,6 +30,7 @@ public class CameraControll : MonoBehaviour
     public RaycastHit hit;
 
     public LayerMask m_LayerMask;
+
     // Use this for initialization
     void Start()
     {
@@ -37,6 +39,7 @@ public class CameraControll : MonoBehaviour
 
         m_TargetPos = transform.position;
         m_Cam = GetComponent<Camera>();
+        m_Moving = false;
     }
 
 
@@ -45,11 +48,17 @@ public class CameraControll : MonoBehaviour
         m_ScreenPoint = m_Cam.WorldToScreenPoint(Input.mousePosition);
         m_Offset = m_ScreenPoint - m_Cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, hit.distance));
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            //Ray ray = m_Cam.ScreenPointToRay(Input.mousePosition);
-            // Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-
+            m_Moving = true;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            m_Moving = false;
+        }
+      
+        if (m_Moving)
+        {
             if (Physics.Raycast(m_Cam.ScreenPointToRay(Input.mousePosition), out hit))
             {
 
@@ -57,15 +66,15 @@ public class CameraControll : MonoBehaviour
                 {
                     return;
                 }
-                else if(hit.transform.gameObject.GetComponent<Module.BasicModuleInfo>().GetMove())
-                { 
+                else if (hit.transform.gameObject.GetComponent<Module.BasicModuleInfo>().GetMove())
+                {
                     print("move");
                     //if returns true then move object
                     /*
                  /* the mouse movement relative to the camera's position then add to the module   */
 
                     // hit.transform.position += //m_Cam.ScreenToViewportPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, hit.distance));
-                    /*if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+                 /*   if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
                     {
                         Vector3 m_vec = new Vector3();
                         m_vec.x += Input.GetAxis("Mouse X") * m_MouseSensitivity;
@@ -95,27 +104,12 @@ public class CameraControll : MonoBehaviour
 
             }
         }
-        /* if (Input.GetMouseButtonDown(0))
-         {
-             //Ray ray = m_Cam.ScreenPointToRay(Input.mousePosition);
 
-
-             if (Physics.Raycast(m_Cam.ScreenPointToRay(Input.mousePosition), out hit))
-             {
-                /* if (hit.transform.GetComponent<Moveable>().GetMove())
-                 {*/
-        /* Vector3 m_curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_ScreenPoint.z);
-         Vector3 m_curPosition = m_Cam.ScreenToWorldPoint(m_curScreenPoint) + m_Offset;
-         hit.transform.position = m_curPosition;*/
-        //}
-        //  }
-        //}
-
+       
         //when input getmousebuttonup is released then remove the movable script;
-        //might need to change the script to actually use the bool instead of adding and removing the script, so move the bool to a nother script like module info
+        //might need to change the script to actually use the bool instead of adding and removing the script, so move the bool to another script like module info
 
 
-        //Physics.Raycast(m_Cam.ScreenPointToRay(Input.mousePosition), out hit);
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -131,12 +125,8 @@ public class CameraControll : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
-        /* if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
-             m_Panning = true;
-         if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
-             m_Panning = false;*/
-
     }
+
     // Update is called once per frame
     void LateUpdate()
     {
@@ -197,7 +187,6 @@ public class CameraControll : MonoBehaviour
         }
 
 
-
         Quaternion m_Qt = Quaternion.Euler(m_LocalRotation.y, m_LocalRotation.x, 0);
         m_Parent.rotation = Quaternion.Lerp(m_Parent.rotation, m_Qt, Time.deltaTime * m_OrbitDamp);
 
@@ -206,25 +195,4 @@ public class CameraControll : MonoBehaviour
             m_CameraTransform.localPosition = new Vector3(0f, 0f, Mathf.Lerp(m_CameraTransform.localPosition.z, m_CamDistance * -1f, Time.deltaTime * m_ScrollDamp));
         }
     }
-
-
-   /* public void OnMouseDown()
-    {
-
-        m_ScreenPoint = m_Cam.WorldToScreenPoint(Input.mousePosition);
-        m_Offset = m_ScreenPoint - m_Cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, hit.distance));
-
-
-
-    }
-    public void OnMouseDrag()
-    {
-
-        if (Physics.Raycast(m_Cam.ScreenPointToRay(Input.mousePosition), out hit))
-        {
-            Vector3 m_curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, hit.distance);
-            Vector3 m_curPosition = m_Cam.ScreenToWorldPoint(m_curScreenPoint) + m_Offset;
-            hit.transform.position = m_curPosition;
-        }
-    }*/
 }
