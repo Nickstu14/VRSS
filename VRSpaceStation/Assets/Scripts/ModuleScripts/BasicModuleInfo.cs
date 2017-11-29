@@ -7,7 +7,7 @@ namespace Module
 
     public class BasicModuleInfo : MonoBehaviour
     {
-
+        public bool m_move;
         public int m_Time;
         public int m_Cost;
 
@@ -24,6 +24,9 @@ namespace Module
         void Start()
         {
             m_MaintenanceVal = 100;
+            m_move = true;
+
+            
         }
 
         void Update()
@@ -32,6 +35,7 @@ namespace Module
             {
                 Destroy(gameObject);
             }
+           
         }
 
         public int GetTime()
@@ -67,6 +71,14 @@ namespace Module
         public void SetMaintVal(int _Val)
         {
             m_MaintenanceVal = _Val;
+        }
+        public bool GetMove()
+        {
+            return m_move;
+        }
+        public void SetMove(bool _Val)
+        {
+            m_move = _Val;
         }
 
     }
