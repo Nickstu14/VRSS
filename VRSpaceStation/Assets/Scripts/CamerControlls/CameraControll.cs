@@ -17,6 +17,7 @@ public class CameraControll : MonoBehaviour
     public float m_ScrollSensitivity = 2f;
     public float m_OrbitDamp = 10f;
     public float m_ScrollDamp = 6f;
+    public float m_MoveSpeed = 0.1f;
 
     private bool m_Panning = false;
     private bool m_Moving;
@@ -77,22 +78,25 @@ public class CameraControll : MonoBehaviour
              /* the mouse movement relative to the camera's position then add to the module   */
 
                 // hit.transform.position += //m_Cam.ScreenToViewportPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, hit.distance));
-                if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
-                {
-                    //Vector3 m_vec = new Vector3();
-                    m_vec.x = Input.GetAxis("Mouse X"); //* m_MouseSensitivity;
-                    m_vec.y = Input.GetAxis("Mouse Y");// * m_MouseSensitivity;
-                    m_vec.z = hit.distance;
+                // if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+                // {
+                //Vector3 m_vec = new Vector3();
+                // m_vec.x = Input.GetAxis("Mouse X"); //* m_MouseSensitivity;
+                // m_vec.y = Input.GetAxis("Mouse Y");// * m_MouseSensitivity;
+                // m_vec.z = hit.distance;
 
-                    //print("X: " + Input.GetAxis("Mouse X") * m_MouseSensitivity + " Y: " + Input.GetAxis("Mouse Y"));
+                //print("X: " + Input.GetAxis("Mouse X") * m_MouseSensitivity + " Y: " + Input.GetAxis("Mouse Y"));
 
-                    //hit.transform.localPosition += m_vec;
+                //hit.transform.localPosition += m_vec;
 
-                   hit.transform.localPosition += m_Cam.ScreenToWorldPoint(m_vec);
-                   
+                // hit.transform.localPosition += m_Cam.ScreenToWorldPoint(m_vec);
 
-                    /* THERE IS A PROBLEM, THIS WORKS OFF OF THE RAY, WHEN THE OBJECT MOVES THE RAY ISNT HITTIN IT ANYMORE*/
-                }
+
+                /* THERE IS A PROBLEM, THIS WORKS OFF OF THE RAY, WHEN THE OBJECT MOVES THE RAY ISNT HITTIN IT ANYMORE*/
+                // }
+                m_vec = new Vector3(Input.mousePosition.x, Input.mousePosition.y, hit.distance);
+                hit.transform.position = Vector3.Lerp(hit.transform.position, m_Cam.ScreenToWorldPoint(m_vec), m_MoveSpeed);
+                
 
             }
             /* else if (hit.transform.GetComponent<Moveable>().GetMove())
