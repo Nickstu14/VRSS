@@ -30,6 +30,7 @@ public class CameraControll : MonoBehaviour
     public Vector3 m_ScreenPoint;
     public Vector3 m_Offset;
     public RaycastHit hit;
+    public float m_distance;
 
     public LayerMask m_LayerMask;
 
@@ -53,20 +54,19 @@ public class CameraControll : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             if (Physics.Raycast(m_Cam.ScreenPointToRay(Input.mousePosition), out hit))
+            {
                 m_Moving = true;
+                m_distance = hit.distance + (hit.transform.localScale.z / 2);
+
+            }
         }
         else if (Input.GetMouseButtonUp(0))
         {
             m_Moving = false;
         }
 
-        print(m_Moving);
-
         if (m_Moving)
         {
-            //if (Physics.Raycast(m_Cam.ScreenPointToRay(Input.mousePosition), out hit))
-            //{
-
             if (!hit.transform.gameObject.GetComponent<Module.BasicModuleInfo>())
             {
                 return;
@@ -94,7 +94,7 @@ public class CameraControll : MonoBehaviour
 
                 /* THERE IS A PROBLEM, THIS WORKS OFF OF THE RAY, WHEN THE OBJECT MOVES THE RAY ISNT HITTIN IT ANYMORE*/
                 // }
-                m_vec = new Vector3(Input.mousePosition.x, Input.mousePosition.y, hit.distance);
+                m_vec = new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_distance);
                 hit.transform.position = Vector3.Lerp(hit.transform.position, m_Cam.ScreenToWorldPoint(m_vec), m_MoveSpeed);
                 
 
