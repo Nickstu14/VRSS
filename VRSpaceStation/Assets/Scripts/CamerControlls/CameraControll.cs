@@ -56,8 +56,10 @@ public class CameraControll : MonoBehaviour
             if (Physics.Raycast(m_Cam.ScreenPointToRay(Input.mousePosition), out hit))
             {
                 m_Moving = true;
-                m_distance = hit.distance + (hit.transform.localScale.z / 2);
-
+                Vector3 m_math = hit.transform.position - hit.point;//Vector3.Lerp(hit.transform.position, hit.point, 1f);
+                float m_mathf = Mathf.Sqrt((m_math.x * m_math.x) + (m_math.y * m_math.y) + (m_math.z * m_math.z));
+                m_distance = hit.distance + (m_mathf);//(hit.transform.localScale.z / 2);
+                print(m_mathf);
             }
         }
         else if (Input.GetMouseButtonUp(0))
@@ -75,7 +77,7 @@ public class CameraControll : MonoBehaviour
             {
                 //if returns true then move object
                 /*
-             /* the mouse movement relative to the camera's position then add to the module   */
+             /* the mouse movement relative to the camera's position then add GPIE2-24VNX-5XT68to the module   */
 
                 // hit.transform.position += //m_Cam.ScreenToViewportPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, hit.distance));
                 // if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
