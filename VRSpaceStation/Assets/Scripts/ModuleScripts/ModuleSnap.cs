@@ -92,3 +92,5 @@ void OnTriggerEnter(Collider col)
     }
 }
  * */
+// when the game object is inside the collider of one of the locatoins a copy of the game object will appear at the position
+// when the user releases the gameobject it will snap, perminently, to the new location.
