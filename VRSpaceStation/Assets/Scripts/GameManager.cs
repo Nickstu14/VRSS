@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public enum GameMode
     {
         Vr,
+        DebugVr,
         DeskTop,
         Debug
     };
