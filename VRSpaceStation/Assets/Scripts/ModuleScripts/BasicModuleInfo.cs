@@ -11,6 +11,7 @@ namespace Module
         public int m_Time;
         public int m_Cost;
 
+
         [Header("This Modules Consumption Values")]
         public int m_PowerConsumption;
 
@@ -79,6 +80,10 @@ namespace Module
         public void SetMove(bool _Val)
         {
             m_move = _Val;
+        }
+        public string GetName()
+        {
+            return transform.name;
         }
 
     }

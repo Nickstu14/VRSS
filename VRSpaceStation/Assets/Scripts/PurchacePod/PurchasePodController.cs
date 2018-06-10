@@ -14,6 +14,7 @@ namespace PurchasePod
 
         public Text m_TimeDisplay; //Display text Not for editing 
         public Text m_CostDisplay; //Display text Not for editing
+        public Text m_TitleDisplay; //Display text Not for editing
                                    //Visual changes see P'P'CanvasDisplay
         public string m_ErrorMsg;
 
@@ -24,8 +25,6 @@ namespace PurchasePod
 
         [Range(10, 100)]
         public float m_Spinspeed;
-
-
 
         void Start()
         {
@@ -47,15 +46,18 @@ namespace PurchasePod
                 {
                     m_TimeDisplay.text = m_Module.GetComponent<Module.BasicModuleInfo>().GetTimeString();
                     m_CostDisplay.text = m_Module.GetComponent<Module.BasicModuleInfo>().GetCostString();
+                    m_TitleDisplay.text = m_Module.GetComponent<Module.BasicModuleInfo>().GetName();
+                    print(m_TitleDisplay.text);
+
                 }
                 else
                 {
                     m_TimeDisplay.text = m_ErrorMsg;
                     m_CostDisplay.text = m_ErrorMsg;
+                    m_TitleDisplay.text = m_ErrorMsg;
                 }
             }
         }
-
         Vector3 Position()
         {
             Vector3 m_pos = gameObject.transform.position;
@@ -63,7 +65,5 @@ namespace PurchasePod
             m_pos.y = gameObject.transform.position.y + (GetComponent<SphereCollider>().center.y * 0.05f); //centers the game object into the sphere
             return m_pos;
         }
-
-
     }
 }

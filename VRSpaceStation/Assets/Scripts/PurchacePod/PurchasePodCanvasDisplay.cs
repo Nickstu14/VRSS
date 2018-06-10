@@ -11,6 +11,7 @@ namespace PurchasePod
 
         public Text m_Time;
         public Text m_Cost;
+        public Text m_Title;
 
         public Font m_font;
 
@@ -22,6 +23,9 @@ namespace PurchasePod
         {
             m_Time.font = m_font;
             m_Time.color = m_TextColour;
+
+            m_Title.font = m_font;
+            m_Title.color = m_TextColour;
 
             m_Cost.font = m_font;
             m_Cost.color = m_TextColour;

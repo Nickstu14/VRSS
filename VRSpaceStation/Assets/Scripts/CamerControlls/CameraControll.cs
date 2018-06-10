@@ -45,12 +45,16 @@ public class CameraControll : MonoBehaviour
         m_Moving = false;
     }
 
+   
 
     void Update()
     {
+
         m_ScreenPoint = m_Cam.WorldToScreenPoint(Input.mousePosition);
         m_Offset = m_ScreenPoint - m_Cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, hit.distance));
 
+
+        //Moving objects
         if (Input.GetMouseButtonDown(0))
         {
             if (Physics.Raycast(m_Cam.ScreenPointToRay(Input.mousePosition), out hit))
@@ -59,7 +63,7 @@ public class CameraControll : MonoBehaviour
                 Vector3 m_math = hit.transform.position - hit.point;//Vector3.Lerp(hit.transform.position, hit.point, 1f);
                 float m_mathf = Mathf.Sqrt((m_math.x * m_math.x) + (m_math.y * m_math.y) + (m_math.z * m_math.z));
                 m_distance = hit.distance + (m_mathf);//(hit.transform.localScale.z / 2);
-                print(m_mathf);
+                //print(m_mathf);
             }
         }
         else if (Input.GetMouseButtonUp(0))
@@ -67,10 +71,14 @@ public class CameraControll : MonoBehaviour
             m_Moving = false;
         }
 
+
         if (m_Moving)
         {
+            
+
             if (!hit.transform.gameObject.GetComponent<Module.BasicModuleInfo>())
             {
+                //if the cursor is not over a module then it has clicked empty space
                 return;
             }
             else if (hit.transform.gameObject.GetComponent<Module.BasicModuleInfo>().GetMove())
@@ -121,20 +129,17 @@ public class CameraControll : MonoBehaviour
 
 
         //when input getmousebuttonup is released then remove the movable script;
-        //might need to change the script to actually use the bool instead of adding and removing the script, so move the bool to another script like module info
-
-
 
         if (Input.GetMouseButtonDown(1))
         {
-            //right click was pressed    
+            //right click was pressed, set panning to be true, hide the cursor and lock it to the centre of the screen
             m_Panning = true;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
         if (Input.GetMouseButtonUp(1))
         {
-            //right click was released    
+            //right click was released, panning becomes false, show the cursor and unlock it.    
             m_Panning = false;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;

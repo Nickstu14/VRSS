@@ -10,7 +10,7 @@ namespace Module
         public Collider s_Colider; // specified collider
         [Space(2)]
         public Vector3 s_SnapPos;
-        public float m_Offset; // how much the object will be offset to the edge of the original gameobject
+        public float m_Offset; // how much the object will be offset to the edge of the original game object
         public bool m_Snapped;
        
     }
@@ -21,7 +21,7 @@ namespace Module
         [SerializeField]
         public List<Snap> m_SnapList;
         //[Space(5)]
-       // public GameObject test;   //dont know whta this was used for.
+        // public GameObject test;   //don't know what this was used for.
         
 
         void Start()

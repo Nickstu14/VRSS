@@ -23,11 +23,30 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        m_Mode = GameMode.Debug; //Debug by default
+        m_Mode = GameMode.Vr; //Debug by default
     }
 
     // Update is called once per frame
     void Update()
+    {
+        KeyboardInput();
+        ModeChoice();
+
+    }
+
+    void KeyboardInput()
+    {
+        if (Input.GetKey(KeyCode.F1))
+            m_Mode = GameMode.Vr;
+        else if (Input.GetKey(KeyCode.F2))
+            m_Mode = GameMode.DeskTop;
+        else if (Input.GetKey(KeyCode.F3))
+            m_Mode = GameMode.Debug;
+        //else if (Input.GetKey(KeyCode.F4)) //for debugVr Mode
+            //m_Mode = GameMode.DebugVr;
+    }
+
+    void ModeChoice()
     {
         switch (m_Mode)
         {
