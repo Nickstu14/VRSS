@@ -74,8 +74,6 @@ public class CameraControll : MonoBehaviour
 
         if (m_Moving)
         {
-            
-
             if (!hit.transform.gameObject.GetComponent<Module.BasicModuleInfo>())
             {
                 //if the cursor is not over a module then it has clicked empty space
