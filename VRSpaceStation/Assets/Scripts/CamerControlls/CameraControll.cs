@@ -89,8 +89,6 @@ public class CameraControll : MonoBehaviour
                 m_ObjectSelect = false;
                 m_Object = null;
                 m_ModuleMenu = null;
-                if(m_ModuleMenu.enabled == true)
-                    m_ModuleMenu.SetShowMenu(false);
             }
             if (enabled)
             {
@@ -98,69 +96,6 @@ public class CameraControll : MonoBehaviour
                 if(m_Object != null)
                     print(m_Object.name);
             }
-        }
-        /*else if (Input.GetMouseButton(0))
-        {
-            if (!(hit.transform.gameObject.GetComponent<Module.BasicModuleInfo>() && hit.transform.gameObject.GetComponent<Module.ModuleMenu>()))
-            {
-                m_ObjectSelect = false;
-            }
-        }*/
-        // once selected a module, st9re its module info into a variable
-
-
-
-        if (m_Moving)
-        {
-            if (!hit.transform.gameObject.GetComponent<Module.BasicModuleInfo>())
-            {
-                //if the cursor is not over a module then it has clicked empty space
-                return;
-            }
-            else if (hit.transform.gameObject.GetComponent<Module.BasicModuleInfo>().GetMove())
-            {
-                //if returns true then move object
-                /*
-             /* the mouse movement relative to the camera's position then add GPIE2-24VNX-5XT68to the module   */
-
-                // hit.transform.position += //m_Cam.ScreenToViewportPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, hit.distance));
-                // if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
-                // {
-                //Vector3 m_vec = new Vector3();
-                // m_vec.x = Input.GetAxis("Mouse X"); //* m_MouseSensitivity;
-                // m_vec.y = Input.GetAxis("Mouse Y");// * m_MouseSensitivity;
-                // m_vec.z = hit.distance;
-
-                //print("X: " + Input.GetAxis("Mouse X") * m_MouseSensitivity + " Y: " + Input.GetAxis("Mouse Y"));
-
-                //hit.transform.localPosition += m_vec;
-
-                // hit.transform.localPosition += m_Cam.ScreenToWorldPoint(m_vec);
-
-
-                /* THERE IS A PROBLEM, THIS WORKS OFF OF THE RAY, WHEN THE OBJECT MOVES THE RAY ISNT HITTIN IT ANYMORE*/
-                // }
-                m_vec = new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_distance);
-                hit.transform.position = Vector3.Lerp(hit.transform.position, m_Cam.ScreenToWorldPoint(m_vec), m_MoveSpeed);
-
-
-            }
-            /* else if (hit.transform.GetComponent<Moveable>().GetMove())
-             {
-                 Vector3 m_curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_ScreenPoint.z);
-                 Vector3 m_curPosition = m_Cam.ScreenToWorldPoint(m_curScreenPoint) + m_Offset;
-                 hit.transform.position = m_curPosition;
-             }*/
-
-
-            //Vector3 m_MousePos = Input.mousePosition;
-            // hit.transform.position += m_Cam.ScreenToWorldPoint(Input.mousePosition);   //new Vector3(m_MousePos.x, m_MousePos.y, hit.distance));
-            //hit.transform.position += Input.mousePosition;
-            //m_Object.transform.position += m_TargetPos;
-
-            //When hit, returns an objects, if moveable start the transform.
-
-            // }
         }
 
         if (m_ModuleMenu == null)
