@@ -7,9 +7,9 @@ public class GameManager : MonoBehaviour
     public enum GameMode
     {
         Vr,
-        DebugVr,
+       // DebugVr,
         DeskTop,
-        Debug
+        //Debug
     };
 
     [Header("Game Mode")]
@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        m_Mode = GameMode.Vr; //Debug by default
+        m_Mode = GameMode.DeskTop; //Debug by default
     }
 
     // Update is called once per frame
@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour
             m_Mode = GameMode.Vr;
         else if (Input.GetKey(KeyCode.F2))
             m_Mode = GameMode.DeskTop;
-        else if (Input.GetKey(KeyCode.F3))
-            m_Mode = GameMode.Debug;
+        //else if (Input.GetKey(KeyCode.F3))
+            //m_Mode = GameMode.Debug;
         //else if (Input.GetKey(KeyCode.F4)) //for debugVr Mode
             //m_Mode = GameMode.DebugVr;
     }
@@ -50,9 +50,9 @@ public class GameManager : MonoBehaviour
     {
         switch (m_Mode)
         {
-            case GameMode.Debug:
+            /*case GameMode.Debug:
                 ModeSwitch(false, false, true);
-                break;
+                break;*/
             case GameMode.DeskTop:
                 ModeSwitch(false, true, false);
                 break;

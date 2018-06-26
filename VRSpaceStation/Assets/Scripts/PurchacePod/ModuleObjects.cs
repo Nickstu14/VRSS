@@ -7,6 +7,7 @@ public class ModuleObjects : MonoBehaviour
     public enum Module
     {
         //None,
+        ModuleMenu,
         // ControlRoom,
         Connection2,
         Connection4,
@@ -29,6 +30,7 @@ public class ModuleObjects : MonoBehaviour
     };
 
     // Use this for initialization
+    public GameObject s_ModuleMenu;
     public GameObject s_ControllRoom;
     public GameObject s_Connection2;
     public GameObject s_Connection4;
@@ -48,6 +50,7 @@ public class ModuleObjects : MonoBehaviour
     public GameObject s_CommsRoom;
     public GameObject s_Engineering;
     public GameObject s_ForceFeild;
+    
 
 
     public GameObject DisplayModule(Module _ModNum)
@@ -71,6 +74,9 @@ public class ModuleObjects : MonoBehaviour
                 break;
             case Module.SolarPannel:
                 return s_SolarPannel;
+                break;
+            case Module.ModuleMenu:
+                return s_ModuleMenu;
                 break;
             /*case Module.PowerRoom: return s_PowerRoom;
              * break;

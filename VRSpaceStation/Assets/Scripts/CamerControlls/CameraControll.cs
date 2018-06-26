@@ -21,8 +21,12 @@ public class CameraControll : MonoBehaviour
 
     private bool m_Panning = false;
     private bool m_Moving;
+    private bool m_Debug;
+    private bool m_ObjectSelect;
+    private bool m_MenuScroll;
 
     public GameObject m_Object;
+    public Module.ModuleMenu m_ModuleMenu;
     private Vector3 m_TargetPos;
 
     private Camera m_Cam;
@@ -35,7 +39,7 @@ public class CameraControll : MonoBehaviour
     public LayerMask m_LayerMask;
 
     // Use this for initialization
-    void Start()
+    void OnEnable()
     {
         m_CameraTransform = this.transform;
         m_Parent = this.transform.parent;
@@ -43,9 +47,13 @@ public class CameraControll : MonoBehaviour
         m_TargetPos = transform.position;
         m_Cam = GetComponent<Camera>();
         m_Moving = false;
+        m_Debug = false;
+        m_ObjectSelect = false;
+        m_Object = null;
+        m_ModuleMenu = null;
     }
 
-   
+
 
     void Update()
     {
@@ -59,22 +67,49 @@ public class CameraControll : MonoBehaviour
         {
             if (Physics.Raycast(m_Cam.ScreenPointToRay(Input.mousePosition), out hit))
             {
-                m_Moving = true;
-                Vector3 m_math = hit.transform.position - hit.point;//Vector3.Lerp(hit.transform.position, hit.point, 1f);
+
+                if (!(hit.transform.gameObject.GetComponent<Module.BasicModuleInfo>() && hit.transform.gameObject.GetComponent<Module.ModuleMenu>()))
+                {
+                    //if the cursor is not over a module then it has clicked empty space
+                    return;
+                }
+                else if (hit.transform.gameObject.GetComponent<Module.BasicModuleInfo>() && hit.transform.gameObject.GetComponent<Module.ModuleMenu>())
+                {
+                    m_ObjectSelect = true;
+                    m_Object = hit.transform.gameObject;
+                    m_ModuleMenu = hit.transform.gameObject.GetComponent<Module.ModuleMenu>();
+                }
+                /* Vector3 m_math = hit.transform.position - hit.point;//Vector3.Lerp(hit.transform.position, hit.point, 1f);
                 float m_mathf = Mathf.Sqrt((m_math.x * m_math.x) + (m_math.y * m_math.y) + (m_math.z * m_math.z));
                 m_distance = hit.distance + (m_mathf);//(hit.transform.localScale.z / 2);
-                //print(m_mathf);
+                //print(m_mathf);*/
+            }
+            else
+            {
+                m_ObjectSelect = false;
+                m_Object = null;
+                m_ModuleMenu = null;
+            }
+            if (enabled)
+            {
+                print(m_ObjectSelect);
+                print(m_Object.name);
             }
         }
-        else if (Input.GetMouseButtonUp(0))
+        /*else if (Input.GetMouseButton(0))
         {
-            m_Moving = false;
-        }
+            if (!(hit.transform.gameObject.GetComponent<Module.BasicModuleInfo>() && hit.transform.gameObject.GetComponent<Module.ModuleMenu>()))
+            {
+                m_ObjectSelect = false;
+            }
+        }*/
+        // once selected a module, st9re its module info into a variable
+
 
 
         if (m_Moving)
         {
-            
+
 
             if (!hit.transform.gameObject.GetComponent<Module.BasicModuleInfo>())
             {
@@ -106,7 +141,7 @@ public class CameraControll : MonoBehaviour
                 // }
                 m_vec = new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_distance);
                 hit.transform.position = Vector3.Lerp(hit.transform.position, m_Cam.ScreenToWorldPoint(m_vec), m_MoveSpeed);
-                
+
 
             }
             /* else if (hit.transform.GetComponent<Moveable>().GetMove())
@@ -127,6 +162,20 @@ public class CameraControll : MonoBehaviour
             // }
         }
 
+        if (m_ModuleMenu == null)
+        {
+            
+            m_MenuScroll = false;
+        }
+        else if (m_ModuleMenu != null)
+        {
+            m_MenuScroll = m_ModuleMenu.GetMouseOver();
+            if(m_MenuScroll)
+            {
+                m_ModuleMenu.SetShowMenu(true);
+            }
+            
+        }
 
         //when input getmousebuttonup is released then remove the movable script;
 
@@ -149,7 +198,6 @@ public class CameraControll : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-
         if (m_Panning)//Mouse input
         {
             if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
@@ -176,9 +224,11 @@ public class CameraControll : MonoBehaviour
             m_LocalRotation.y -= Time.deltaTime * m_KeySpeed;
             m_LocalRotation.y = Mathf.Clamp(m_LocalRotation.y, -90f, 90f);
         }
+        
+
 
         //Mouse zoom in and out
-        if (Input.GetAxis("Mouse ScrollWheel") != 0f)
+        if (Input.GetAxis("Mouse ScrollWheel") != 0f && !m_MenuScroll)
         {
             float m_ScrollAmount = Input.GetAxis("Mouse ScrollWheel") * m_ScrollSensitivity;
 
@@ -213,5 +263,11 @@ public class CameraControll : MonoBehaviour
         {
             m_CameraTransform.localPosition = new Vector3(0f, 0f, Mathf.Lerp(m_CameraTransform.localPosition.z, m_CamDistance * -1f, Time.deltaTime * m_ScrollDamp));
         }
+        
     }
+    public bool GetDebug()
+    {
+        return m_Debug;
+    }
+
 }

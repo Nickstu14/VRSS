@@ -26,7 +26,7 @@ namespace PurchasePod
         [Range(10, 100)]
         public float m_Spinspeed;
 
-        void Start()
+        void OnEnable()
         {
             m_Module = GameObject.Find("ModuleList").GetComponent<ModuleObjects>().DisplayModule(m_ModuleNum);
             if (m_Module != null)

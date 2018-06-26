@@ -40,7 +40,7 @@ namespace Staff
 
             //Read the text from directly from the test.txt file
             s_TextFiles[0] = Resources.Load(path) as TextAsset;
-            print(s_TextFiles[0]);
+            //print(s_TextFiles[0]);
                // TextAsset bindata = Resources.Load("Texture") as TextAsset;
 
         }
