@@ -89,11 +89,14 @@ public class CameraControll : MonoBehaviour
                 m_ObjectSelect = false;
                 m_Object = null;
                 m_ModuleMenu = null;
+                if(m_ModuleMenu.enabled == true)
+                    m_ModuleMenu.SetShowMenu(false);
             }
             if (enabled)
             {
                 print(m_ObjectSelect);
-                print(m_Object.name);
+                if(m_Object != null)
+                    print(m_Object.name);
             }
         }
         /*else if (Input.GetMouseButton(0))
