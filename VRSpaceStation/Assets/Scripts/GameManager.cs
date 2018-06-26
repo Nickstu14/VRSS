@@ -23,7 +23,11 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+<<<<<<< HEAD
         m_Mode = GameMode.DeskTop; //Debug by default
+=======
+        m_Mode = GameMode.Debug; //Debug by default
+>>>>>>> afe2765ea66a6975a513f894dd432071dfece337
     }
 
     // Update is called once per frame
