@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Module
+namespace Menu
 {
     public class ModuleMenu : MonoBehaviour
     {
         private bool m_MouseOver;
         private bool m_Show;
-
         // Use this for initialization
         void Start()
         {
@@ -49,5 +48,6 @@ namespace Module
         {
             return m_Show;
         }
+
     }
 }

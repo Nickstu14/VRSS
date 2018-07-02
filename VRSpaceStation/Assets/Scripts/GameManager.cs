@@ -20,10 +20,14 @@ public class GameManager : MonoBehaviour
     public GameObject m_DesktopGameObject;
     [Header("Debug")]
     public GameObject m_DebugGameObject;
-    // Use this for initialization
+    [Header("Desktop Canvas")]
+    public GameObject m_Canvas;
+
+    private Menu.MenuManager m_MenuManager;
     void Start()
     {
         m_Mode = GameMode.DeskTop; //Debug by default
+        m_MenuManager = GetComponent<Menu.MenuManager>();
     }
 
     // Update is called once per frame
@@ -31,7 +35,6 @@ public class GameManager : MonoBehaviour
     {
         KeyboardInput();
         ModeChoice();
-
     }
 
     void KeyboardInput()
@@ -40,32 +43,26 @@ public class GameManager : MonoBehaviour
             m_Mode = GameMode.Vr;
         else if (Input.GetKey(KeyCode.F2))
             m_Mode = GameMode.DeskTop;
-        //else if (Input.GetKey(KeyCode.F3))
-            //m_Mode = GameMode.Debug;
-        //else if (Input.GetKey(KeyCode.F4)) //for debugVr Mode
-            //m_Mode = GameMode.DebugVr;
     }
 
     void ModeChoice()
     {
         switch (m_Mode)
         {
-            /*case GameMode.Debug:
-                ModeSwitch(false, false, true);
-                break;*/
             case GameMode.DeskTop:
-                ModeSwitch(false, true, false);
+                ModeSwitch(false, true);
+                m_MenuManager.SetActiveMenu(true);
                 break;
             case GameMode.Vr:
-                ModeSwitch(true, false, false);
+                ModeSwitch(true, false);
                 break;
         }
     }
 
-    void ModeSwitch(bool _Vr, bool _Desk, bool _Debug)
+    void ModeSwitch(bool _Vr, bool _Desk)
     {//turns the correct mode on & the others off
         m_VrGameObject.SetActive(_Vr);
         m_DesktopGameObject.SetActive(_Desk);
-        m_DebugGameObject.SetActive(_Debug);
     }
+
 }
