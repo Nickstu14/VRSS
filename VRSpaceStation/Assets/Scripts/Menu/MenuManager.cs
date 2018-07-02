@@ -11,6 +11,7 @@ namespace Menu
         [SerializeField]
         private GameObject m_Object;
         public GameObject m_ButtonTemplate;
+        public GameObject m_ModuleList;
 
         private bool m_DesktopMode; //only true when the desktop mode is active, set by the GameManager
 
@@ -20,12 +21,15 @@ namespace Menu
 
         void Start()
         {
+
+
+
             for (int i = 1; i<20;i++)
             {
                 GameObject m_Button = Instantiate(m_ButtonTemplate) as GameObject;
                 m_Button.SetActive(true);
 
-                m_Button.GetComponent<MenuButton>().SetText("Button " + i);
+                m_Button.GetComponentInChildren<MenuButton>().SetText("Button " + i);
 
                 m_Button.transform.SetParent(m_ButtonTemplate.transform.parent, false);
             }
