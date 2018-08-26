@@ -15,6 +15,7 @@ namespace Module
        
     }
 
+    [AddComponentMenu("VRSS/Module/ModuleSnap")]
     public class ModuleSnap : MonoBehaviour
     {
         //public Vector3 s_SnapPos;

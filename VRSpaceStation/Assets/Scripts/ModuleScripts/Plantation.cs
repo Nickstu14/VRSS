@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Module
 {
+    [AddComponentMenu("VRSS/Module/Plantation")]
     public class Plantation : MonoBehaviour
     {
 

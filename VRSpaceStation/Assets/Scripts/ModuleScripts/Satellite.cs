@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Module
 {
+    [AddComponentMenu("VRSS/Module/Satellite")]
     public class Satellite : MonoBehaviour
     {
 

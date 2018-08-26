@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace PurchasePod
 {
-    //[AddComponentMenu("Purchase Pod/Purchase Pod Canvas Display")]
+    [AddComponentMenu("VRSS/VR/Purchase Pod/Purchase Pod Canvas Display")]
     public class PurchasePodCanvasDisplay : MonoBehaviour
     {
 

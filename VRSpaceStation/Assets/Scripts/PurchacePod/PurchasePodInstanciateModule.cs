@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace PurchasePod
 {
+    [AddComponentMenu("VRSS/VR/Purchase Pod/PurchasePodInstanciateModule")]
     public class PurchasePodInstanciateModule : MonoBehaviour
     {
         public GameObject m_DisplayModule;

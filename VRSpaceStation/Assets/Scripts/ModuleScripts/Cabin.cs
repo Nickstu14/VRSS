@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Module
 {
+    [AddComponentMenu("VRSS/Module/Cabin")]
     public class Cabin : MonoBehaviour
     {
         private int s_Cabin;

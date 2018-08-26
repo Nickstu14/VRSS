@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Module
 {
+    [AddComponentMenu("VRSS/Module/Storage")]
     public class Storage : MonoBehaviour
     {
 

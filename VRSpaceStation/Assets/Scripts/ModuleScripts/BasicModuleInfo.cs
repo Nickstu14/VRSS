@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Module
 {
-
+    [AddComponentMenu("VRSS/Module/BasicModuleInfo")]
     public class BasicModuleInfo : MonoBehaviour
     {
         public bool m_move;

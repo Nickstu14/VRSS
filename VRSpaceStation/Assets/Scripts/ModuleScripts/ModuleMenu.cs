@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Menu
 {
+    [AddComponentMenu("VRSS/Menu/ModuleMenu")]
     public class ModuleMenu : MonoBehaviour
     {
         private bool m_MouseOver;

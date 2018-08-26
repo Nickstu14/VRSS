@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Menu
-
 {
+    [AddComponentMenu("VRSS/Menu/MenuButton")]
     public class MenuButton : MonoBehaviour
     {
         [SerializeField]

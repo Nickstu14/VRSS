@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Module
 {
+    [AddComponentMenu("VRSS/Module/Power")]
     public class Power : MonoBehaviour
     {
         private int s_Power;

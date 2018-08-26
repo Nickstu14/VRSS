@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Module
 {
+    [AddComponentMenu("VRSS/Module/InitControllRoom")]
     public class InitControllRoom : MonoBehaviour
     {
 

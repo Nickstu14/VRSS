@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Module
 {
+    [AddComponentMenu("VRSS/Module/ForceField")]
     public class ForceField : MonoBehaviour
     {
         private int m_ShieldStrength;

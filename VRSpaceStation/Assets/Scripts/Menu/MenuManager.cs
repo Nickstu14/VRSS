@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace Menu
 {
+    /*
+     *Menu manager, controlls the menus in the desktop side version of the game. 
+     */
+    [AddComponentMenu("VRSS/Menu/MenuManager")]
     public class MenuManager : MonoBehaviour
     {
         [Header("VR / Desktop")]

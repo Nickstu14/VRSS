@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Module
 {
+    [AddComponentMenu("VRSS/Module/LifeSupport")]
     public class LifeSupport : MonoBehaviour
     {
         public int s_PopulationCapacity;

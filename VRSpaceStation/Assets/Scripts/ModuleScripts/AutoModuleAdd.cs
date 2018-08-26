@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Module
 {
+    [AddComponentMenu("VRSS/Module/AutoModuleAdd")]
 
     public class AutoModuleAdd : MonoBehaviour
     {

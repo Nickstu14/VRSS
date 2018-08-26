@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace PurchasePod
 {
-   // [AddComponentMenu("Purchase Pod/Purchase Pod Module Spin")]
+    [AddComponentMenu("VRSS/VR/Purchase Pod/Purchase Pod Module Spin")]
     public class PurchacePodModuleSpin : MonoBehaviour
     {
         public PurchasePodController m_Contoller;

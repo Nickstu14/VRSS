@@ -1,23 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace Module
 {
-    [AddComponentMenu("VRSS/Module/OxygenContainer")]
-    public class OxygenContainer : MonoBehaviour
+    public class ModuleSelect : MonoBehaviour
     {
-        private int s_OxygenContainer;
+        
         // Use this for initialization
         void Start()
         {
-            s_OxygenContainer = 50;
 
+            
         }
 
         // Update is called once per frame
-        public int GetOxygenContainer()
+        void Update()
         {
-            return s_OxygenContainer;
+
         }
     }
 }

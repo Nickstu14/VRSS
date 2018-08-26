@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Module
 {
+    [AddComponentMenu("VRSS/Module/Medical")]
     public class Medical : MonoBehaviour
     {
         private bool s_Medical;
