@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    // [System.Serializable]
     public enum GameMode
     {
         Vr,
@@ -24,10 +25,12 @@ public class GameManager : MonoBehaviour
     public GameObject m_Canvas;
 
     private Menu.MenuManager m_MenuManager;
+    public Desktop.DebugManager m_DM;
     void Start()
     {
         m_Mode = GameMode.DeskTop; //Debug by default
         m_MenuManager = GetComponent<Menu.MenuManager>();
+        m_DM = GetComponent<Desktop.DebugManager>();
     }
 
     // Update is called once per frame
@@ -35,6 +38,7 @@ public class GameManager : MonoBehaviour
     {
         KeyboardInput();
         ModeChoice();
+        m_DM.SetMode(m_Mode);
     }
 
     void KeyboardInput()
@@ -64,5 +68,7 @@ public class GameManager : MonoBehaviour
         m_VrGameObject.SetActive(_Vr);
         m_DesktopGameObject.SetActive(_Desk);
     }
+
+  
 
 }

@@ -17,15 +17,12 @@ namespace Desktop
         public Material m_ModuleMat;
         public Material m_ModuleSelectedMat;
 
-        private DebugScreenText m_DebugText;
+
         // Use this for initialization
         void Start()
         {
-            // m_Camera = GetComponent<Camera>();
-            m_DebugText = GetComponent<DebugScreenText>();
-            m_DebugText.SetInfo("Selected: ");
-
             m_Camera = GetComponentInChildren<Camera>();
+           
         }
 
         // Update is called once per frame
@@ -46,6 +43,8 @@ namespace Desktop
             {
                 ClearSelection();
             }
+
+
            
         }
 
@@ -68,7 +67,7 @@ namespace Desktop
                 m_r.material = m_m;
             }
 
-            m_DebugText.SetInfo("Selected: " + m_selectedObject.name);
+           
 
 
         }
@@ -87,8 +86,6 @@ namespace Desktop
             }
 
             m_selectedObject = null;
-
-            m_DebugText.SetInfo("Selected: " );
         }
     }
 }

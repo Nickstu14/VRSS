@@ -8,25 +8,26 @@ namespace Desktop
     [AddComponentMenu("VRSS/Desktop/DebugScreenText")]
     public class DebugScreenText : MonoBehaviour
     {
-        public Text m_Text;
-        public string m_info;
+        public Text m_ModeText; //Holds the text GO that will show what mode you are currently on (not sure if needed)
+
+        public string m_Mode;
 
         // Use this for initialization
         void Start()
         {
-      
+
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (m_info != null)
-                m_Text.text = m_info;
+            if (m_Mode != null)
+                m_ModeText.text = "Mode: " + m_Mode; 
         }
 
-        public void SetInfo(string _val)
+        public void SetMode(string _val = null)
         {
-            m_info = _val;
+            m_Mode = _val;
         }
     }
 }
