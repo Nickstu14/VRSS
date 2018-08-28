@@ -9,14 +9,18 @@ namespace Desktop
     public class DebugManager : MonoBehaviour
     {
         [SerializeField]
+        public GameManager m_GM;
         public GameManager.GameMode m_GMMode;
         public DebugScreenText m_DebugScreen;
+        public Camera m_Cam;
 
         // Use this for initialization
         void Start()
         {
-            m_GMMode = GetComponent<GameManager.GameMode>();
+            m_GM = GetComponent<GameManager>();
+            m_Cam =  GetComponentInChildren<Camera>();
             m_DebugScreen = GetComponentInChildren<DebugScreenText>();
+            
         }
 
         // Update is called once per frame
@@ -24,10 +28,12 @@ namespace Desktop
         {
             if (m_DebugScreen != null)
             {
-                if (m_GMMode == GameManager.GameMode.DeskTop)
+                if (m_GM.GetMode() == GameManager.GameMode.DeskTop)
                     m_DebugScreen.SetMode("Desktop");
-                else if (m_GMMode == GameManager.GameMode.Vr)
+                else if (m_GM.GetMode() == GameManager.GameMode.Vr)
                     m_DebugScreen.SetMode("VR");
+                if (m_Cam != null)
+                    m_DebugScreen.SetCamPos(m_Cam.transform.position);
             }
             else if (m_DebugScreen == null)
             {
